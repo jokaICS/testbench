@@ -21,3 +21,6 @@ clean:
 	rm -f *.o
 	rm -f libtestbench.a
 	rm -f testbench
+
+distclean: clean
+	rm -rf $(SCADESRCDIR)

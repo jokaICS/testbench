@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project id="1" oid_count="103" defaultConfiguration="22">
+<Project id="1" oid_count="105" defaultConfiguration="22">
 	<props>
 		<Prop id="10" name="@STUDIO:PRODUCT">
 			<value>SC</value>
@@ -48,10 +48,6 @@
 		</Prop>
 		<Prop id="25" name="@GENERATOR:GENERATOR">
 			<value>C QUAL64</value>
-			<configuration>22</configuration>
-		</Prop>
-		<Prop id="27" name="@GENERATOR:DEBUG">
-			<value>true</value>
 			<configuration>22</configuration>
 		</Prop>
 		<Prop id="28" name="@GENERATOR:PROBES">
@@ -298,6 +294,14 @@
 		</Prop>
 		<Prop id="102" name="@GENERATOR:EXPAND_MODE">
 			<value>2</value>
+			<configuration>22</configuration>
+		</Prop>
+		<Prop id="104" name="@GENERATOR:OBSERVED_NODES">
+			<value>Integration</value>
+			<configuration>22</configuration>
+		</Prop>
+		<Prop id="105" name="@GENERATOR:OBSERVE_MODE">
+			<value>4</value>
 			<configuration>22</configuration>
 		</Prop>
 	</props>

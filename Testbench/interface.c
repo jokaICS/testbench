@@ -20,13 +20,15 @@ ossm_atbl_Entry test_ossm_scade_entries[] = {
   {.key = "GUI_currentPositionInM", .type = DOUBLE, .adr = &out.GUI_currentPositionInM, .rdly = true},
   {.key = "GUI_currentVelocityInKmH", .type = DOUBLE, .adr = &out.GUI_currentVelocityInKmH, .rdly = true},
   {.key = "GUI_timestamp", .type = INT, .adr = &out.GUI_timestamp, .rdly = true},
+  {.key = "GUI_emergencyBrake", .type = BOOL, .adr = &out.GUI_emergencyBrake, .rdly = true},
+  {.key = "GUI_serviceBrake", .type = BOOL, .adr = &out.GUI_serviceBrake, .rdly = true},
   // DEBUG
   {.key = "debugPermittedSpeed", .type = DOUBLE, .adr = &out.debugPermittedSpeed, .rdly = true},
   //{.key = "path/b", .type = UCHAR, .adr = &data.b}
 };
 
 ossm_atbl_Table test_ossm_scade_tbl = {
-  .size = 14,
+  .size = 15,
   .sorting = UNSORTED,
   .entries = test_ossm_scade_entries
 };
