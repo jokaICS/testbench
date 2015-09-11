@@ -14,7 +14,8 @@ proc ctrl::setBrake {b} {
 
 proc ctrl::cycle {} {
   SSM::cycle
-  OSSM::update_link ::out_timestamp ::out_currentVelocityInKmH ::out_emergencyBrake ::out_serviceBrake
+  OSSM::update_link ::out_timestamp ::out_currentVelocityInKmH ::out_emergencyBrake ::out_serviceBrake\
+                    ::out_debugMode_raw ::out_debugLevel ::out_debugPermittedSpeed ::out_debugInterventionSpeed
 }
 
 proc ctrl::loop {} {

@@ -10,6 +10,14 @@ image create photo btn_run -file "$scriptdir/icons/play.gif"
 image create photo btn_pause -file "$scriptdir/icons/pause.gif"
 image create photo btn_step -file "$scriptdir/icons/step.gif"
 
+proc makelv {path lbl var col row {vopts ""}} {
+  #grid [ttk::frame $path] -column $col -row $row
+  append lpath $path _l
+  append vpath $path _v
+  grid [ttk::label $lpath -text $lbl] -column $col -row $row -sticky e
+  grid [ttk::label $vpath -textvar $var {*}$vopts] -column [expr $col + 1] -row $row -sticky w
+}
+
 
 wm title . "openETCS Sim"
 # .c - content frame
@@ -18,10 +26,13 @@ grid [ttk::frame .c -padding 5] -column 0 -row 0 -sticky nwes -padx 5
 
 # frame "Simulation"
 grid [ttk::labelframe .c.sim -text "Simulation" -padding 3] -column 0 -row 0 -sticky n
-grid [ttk::label .c.sim.ltstamp -text "Time (ms):"] -column 0 -row 1
-grid [ttk::label .c.sim.tstamp -textvar ::out_timestamp] -column 1 -row 1
-grid [ttk::button .c.sim.reset -text "Reset" -command ctrl::reset] -column 0 -row 2
-foreach w [winfo children .c.sim] {grid configure $w -padx 5 -pady 5}
+makelv .c.sim.tstamp "Time (ms): " ::out_timestamp 0 0 {-width 8}
+makelv .c.sim.mode "Mode: " ::out_debugMode 0 1
+makelv .c.sim.level "Level: " ::out_debugLevel 0 2
+makelv .c.sim.pspeed "Permitted: " ::out_debugPermittedSpeed 0 3
+makelv .c.sim.ispeed "Intervention: " ::out_debugInterventionSpeed 0 4
+grid [ttk::button .c.sim.reset -text "Reset" -command ctrl::reset]; # -column 0 -row 2
+#foreach w [winfo children .c.sim] {grid configure $w -padx 5 -pady 5}
 
 
 # frame "Desk"
@@ -51,6 +62,6 @@ grid [tachometer::constructor .c.dmi.tacho ::out_currentVelocityInKmH { 0 10 20 
 
 # button row
 grid [ttk::frame .c.foot] -column 0 -row 1 -columnspan 3 
-grid [ttk::button .c.foot.step -text Step -width 5 -command ctrl::cycle] -row 0 -column 0
+grid [ttk::button .c.foot.step -compound left -image btn_step -text Step -width 5 -command ctrl::cycle] -row 0 -column 0
 grid [ttk::button .c.foot.run -compound left -image btn_run -text Run -command ctrl::run -width 5] -row 0 -column 1
 

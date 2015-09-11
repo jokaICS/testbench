@@ -2,7 +2,7 @@ SCADESRCDIR = Simulation
 SCADEFILES = $(wildcard $(SCADESRCDIR)/*.c)
 SCADEOBJS = $(subst .c,.o,$(SCADEFILES))
 OSSMINCDIR = ~/ics/tmp/ossm/src
-OSSMLIB = ~/ics/tmp/ossm/build/Debug/libossm.a
+OSSMLIB = -L ~/ics/tmp/ossm/build/Debug/ -lossm
 CFLAGS = -I. -I include -I $(SCADESRCDIR) -I $(OSSMINCDIR) -O3
 LDFLAGS = -ltcl $(OSSMLIB)
 

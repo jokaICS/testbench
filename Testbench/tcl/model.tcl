@@ -8,5 +8,9 @@ OSSM::link GUI_openDesk in_openDesk\
            GUI_currentVelocityInKmH out_currentVelocityInKmH\
            GUI_emergencyBrake out_emergencyBrake\
            GUI_serviceBrake out_serviceBrake\
+           debugCurrentMode out_debugMode\
+           debugCurrentLevel out_debugLevel\
+           debugPermittedSpeed out_debugPermittedSpeed\
+           debugInterventionSpeed out_debugInterventionSpeed\
 
 set in_initialVelocity 30
