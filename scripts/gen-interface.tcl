@@ -18,67 +18,51 @@ proc getTblEntryType {type} {
   }
 }
 
-#proc getTypeDesc {type keyPrefix adrPrefix} {
-#  set entries {}
-#
-#  switch [Class $type] {
-#    Structure {
-#      append keyPrefix .
-#      append adrPrefix .
-#      foreach e [GetRole $type element] {
-#        set typename [getTblEntryType [Get [GetRole $e type] name]]
-#        set name [Get $e name]
-#        if {$typename!=0} {
-#          lappend entries "$keyPrefix$name $typename $adrPrefix$name"
-#        } else { 
-#          foreach subtype [GetRole [GetRole $e type] definition] {
-#            lappend entries [join [getTypeDesc $subtype $keyPrefix$name $adrPrefix$name]]
-#          }
-#        }
-#      }
-#    }
-#    NamedType {
-#      lappend entries [getTypeDesc [GetRole $type type] $keyPrefix $adrPrefix]
-#    }
-#    default { output [Class $type] }
-#  }
-#  output $entries\n\n
-#  return $entries
-#}
 
-proc getEntries {entity keyPrefix adrPrefix} {
+proc getEntries {entity keyPrefix adrPrefix {readonly false}} {
   lappend entries
 
   switch [Class $entity] {
     NamedType {
       if [Call $entity IsPredefined] {
-        lappend entries [list "$keyPrefix [getTblEntryType [Get $entity name]] $adrPrefix"]
+        lappend entries [list "$keyPrefix [getTblEntryType [Get $entity name]] $adrPrefix $readonly"]
       } else {
-        lappend entries [join [getEntries [GetRole $entity definition] $keyPrefix $adrPrefix]]
+        lappend entries [join [getEntries [GetRole $entity definition] $keyPrefix $adrPrefix $readonly]]
       }      
     }
     LocalVariable {
       set name [Get $entity name]
-      lappend entries [join [getEntries [GetRole $entity type] $keyPrefix$name $adrPrefix$name]]
+      lappend entries [join [getEntries [GetRole $entity type] $keyPrefix$name $adrPrefix$name $readonly]]
     }
     Structure {
       foreach elem [GetRole $entity element] {
         set name [Get $elem name]
-	lappend entries [join [getEntries [GetRole $elem type] $keyPrefix.$name $adrPrefix.$name]]
+	lappend entries [join [getEntries [GetRole $elem type] $keyPrefix.$name $adrPrefix.$name $readonly]]
       }
-      #output $entries\n\n
     }
-    default {  }
+    Enumeration {
+      lappend entries [list "$keyPrefix INT $adrPrefix $readonly"]
+    }
+    default {}
+    #default {    output "$keyPrefix: [Class $entity]\n"    }
   }
   #output $entries\n\n
   return $entries
 }
 
 
-proc getEntriesForNode {node} {
+proc getEntriesForNode {node {includeLocals false}} {
   set entries {}
   foreach in [GetRole $node input] {
     lappend entries [join [getEntries $in "" "&in."]]
+  }
+  foreach out [GetRole $node output] {
+    lappend entries [join [getEntries $out "" "&out." true]]
+  }
+  if $includeLocals {
+    foreach loc [GetRole $node local] {
+      lappend entries [join [getEntries $loc "" "&out." true]]
+    }
   }
   #output [join $entries]\n\n
   return [join $entries]
@@ -88,7 +72,7 @@ proc getEntriesForNode {node} {
 proc printEntries {entries entriesVar} {
   output "ossm_atbl_Entry $entriesVar\[\] = \{\n"
   foreach e $entries {
-    output "  {.key = \"[lindex $e 0]\", .type = [lindex $e 1], .adr = [lindex $e 2]},\n"
+    output "  {.key = \"[lindex $e 0]\", .type = [lindex $e 1], .adr = [lindex $e 2], .rdly = [lindex $e 3]},\n"
   }
   output "\};\n"
 }
