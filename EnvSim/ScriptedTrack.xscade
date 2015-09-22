@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<File xmlns="http://www.esterel-technologies.com/ns/scade/4" xmlns:ed="http://www.esterel-technologies.com/ns/scade/pragmas/editor/5" xmlns:kcg="http://www.esterel-technologies.com/ns/scade/pragmas/codegen/2">
+	<declarations>
+		<Operator kind="function" external="imported" name="ScriptedTrack">
+			<inputs>
+				<Variable name="actualTrainPos">
+					<type>
+						<NamedType>
+							<type>
+								<TypeRef name="real"/>
+							</type>
+						</NamedType>
+					</type>
+					<pragmas>
+						<ed:Variable oid="!ed/5ef986/5971/E40/55f97a13ae"/>
+					</pragmas>
+				</Variable>
+				<Variable name="radioTrainPos">
+					<type>
+						<NamedType>
+							<type>
+								<TypeRef name="real"/>
+							</type>
+						</NamedType>
+					</type>
+					<pragmas>
+						<ed:Variable oid="!ed/5ef98f/5971/E40/55f97a2c2b34"/>
+					</pragmas>
+				</Variable>
+			</inputs>
+			<outputs>
+				<Variable name="radioMessage">
+					<type>
+						<NamedType>
+							<type>
+								<TypeRef name="TM::CompressedRadioMessage"/>
+							</type>
+						</NamedType>
+					</type>
+					<pragmas>
+						<ed:Variable oid="!ed/5ef998/5971/E40/55f97a467309"/>
+					</pragmas>
+				</Variable>
+				<Variable name="baliseMessage">
+					<type>
+						<NamedType>
+							<type>
+								<TypeRef name="TM::CompressedBaliseMessage"/>
+							</type>
+						</NamedType>
+					</type>
+					<pragmas>
+						<ed:Variable oid="!ed/5ef9a2/5971/E40/55f97b6b32c1"/>
+					</pragmas>
+				</Variable>
+			</outputs>
+			<pragmas>
+				<ed:Operator oid="!ed/5ef985/5971/E40/55f97a0014e5"/>
+			</pragmas>
+		</Operator>
+	</declarations>
+</File>
