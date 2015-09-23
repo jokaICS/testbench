@@ -8,6 +8,7 @@
 #include "ScriptedTrack_EnvSim.h"
 
 extern void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out);
+extern void es_scripted_tracksim_cycle(outC_ScriptedTrack_EnvSim *out, double actualPos, double radioPos);
 
 void ScriptedTrack_init_EnvSim(outC_ScriptedTrack_EnvSim *outC)
 {
@@ -28,7 +29,7 @@ void ScriptedTrack_EnvSim(
   /* EnvSim::ScriptedTrack::radioTrainPos */ kcg_real radioTrainPos,
   outC_ScriptedTrack_EnvSim *outC)
 {
-  /* The body of this function must be provided */
+  es_scripted_tracksim_cycle(outC,actualTrainPos,radioTrainPos);
 }
 
 /* $**************** KCG Version 6.4 (build i21) ****************

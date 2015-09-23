@@ -9,7 +9,7 @@
 #define ENGINE_TRACKMSG_H
 
 #include "utils.h"
-#include "kcg_types.h"
+//#include "kcg_types.h"
 #include "scade/ScriptedTrack_EnvSim.h"
 
 typedef double es_TriggerPos;
@@ -30,7 +30,7 @@ typedef struct {
 typedef struct {
   es_TrackMessages *messages;
   // last passed balise message
-  es_TriggeredBaliseMessage *prevBmsg;
+  es_ListEntry *prevBmsg;
   // last train position used for triggering of balise messages
   es_TriggerPos prevBPos;
 } es_TrackSimState;
@@ -47,11 +47,11 @@ void es_queue_balise_message(CompressedBaliseMessage_TM *msg);
 void es_write_next_balise_message(CompressedBaliseMessage_TM *target);
 
 // Adds a new balise message to the prvided track at the specified trigger position.
-void es_add_triggered_balise_message(es_TrackMessages *track, es_TriggerPos pos, CompressedBaliseMessage_TM bmsg);
+void es_add_triggered_balise_message(es_TrackMessages *track, es_TriggerPos pos, CompressedBaliseMessage_TM *bmsg);
 
-void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out);
+//void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out);
 
-void es_scripted_tracksim_cycle(double actualPos);
+//void es_scripted_tracksim_cycle(outC_ScriptedTrack_EnvSim *out, double actualPos);
 
 void es_exec_tracksim_cycle(es_TrackSimState *state, es_TriggerPos newBPos);
 

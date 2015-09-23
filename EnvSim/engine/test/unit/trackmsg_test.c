@@ -53,14 +53,14 @@ START_TEST(test_es_add_triggered_balise_message) {
     es_TrackMessages track;
     track.bmsgs = NULL;
 
-    es_add_triggered_balise_message(&track,101.5,bmsg2);
+    es_add_triggered_balise_message(&track,101.5,&bmsg2);
     ck_assert_int_eq(2, ((es_TriggeredBaliseMessage*)track.bmsgs->data)->msg.Header.nid_c);
 
-    es_add_triggered_balise_message(&track,42.0,bmsg1);
+    es_add_triggered_balise_message(&track,42.0,&bmsg1);
     ck_assert_int_eq(1, ((es_TriggeredBaliseMessage*)track.bmsgs->data)->msg.Header.nid_c);
     ck_assert_int_eq(2, ((es_TriggeredBaliseMessage*)track.bmsgs->tail->data)->msg.Header.nid_c);
 
-    es_add_triggered_balise_message(&track,1234.5,bmsg3);
+    es_add_triggered_balise_message(&track,1234.5,&bmsg3);
     ck_assert_int_eq(1, ((es_TriggeredBaliseMessage*)track.bmsgs->data)->msg.Header.nid_c);
     ck_assert_int_eq(2, ((es_TriggeredBaliseMessage*)track.bmsgs->tail->data)->msg.Header.nid_c);
     ck_assert_int_eq(3, ((es_TriggeredBaliseMessage*)track.bmsgs->tail->tail->data)->msg.Header.nid_c);

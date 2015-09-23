@@ -12,6 +12,7 @@
 #include <stdbool.h>
 
 #define MALLOC(type) ((type*) malloc(sizeof(type)));
+#define CALLOC(type) ((type*) calloc(1,sizeof(type)));
 
 
 // Elements of a singly linked list
