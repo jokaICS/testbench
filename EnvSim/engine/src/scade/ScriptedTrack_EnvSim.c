@@ -7,9 +7,11 @@
 #include "kcg_sensors.h"
 #include "ScriptedTrack_EnvSim.h"
 
+extern void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out);
+
 void ScriptedTrack_init_EnvSim(outC_ScriptedTrack_EnvSim *outC)
 {
-  /* The body of this function must be provided */
+  es_scripted_tracksim_init(outC);
 }
 
 

@@ -1,5 +1,5 @@
 //     Project: EnvSim
-//      Module: interp.h
+//      Module: libenvsim / interp.h
 // Description: Custom interface to the Tcl interpreter
 //
 // History:
@@ -11,7 +11,12 @@
 #include <jim.h>
 
 typedef Jim_Interp es_Interp;
+typedef int es_Status;
 
 es_Interp* es_init_interp();
+
+void es_free_interp(es_Interp *interp);
+
+es_Status es_eval_tcl(es_Interp *interp, const char *script);
 
 #endif //ENGINE_INTERP_H

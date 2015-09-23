@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project id="1" oid_count="99" defaultConfiguration="22">
+<Project id="1" oid_count="115" defaultConfiguration="22">
 	<props>
 		<Prop id="10" name="@STUDIO:PRODUCT">
 			<value>SC</value>
@@ -37,6 +37,7 @@
 			<value>22</value>
 			<value>42</value>
 			<value>53</value>
+			<value>105</value>
 		</Prop>
 		<Prop id="23" name="@GENERATOR:TARGET_DIR">
 			<value>$(Configuration)</value>
@@ -300,21 +301,72 @@
 			<value>61</value>
 			<value>64</value>
 			<value>72</value>
+			<value>105</value>
 		</Prop>
 		<Prop id="98" name="@SCADE:CHECKED">
 			<value>false</value>
+		</Prop>
+		<Prop id="106" name="@GENERATOR:USER_CONFIG">
+			<value>$(TargetDir)\user_macros.h</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="108" name="@GENERATOR:SKIP_UNUSED">
+			<value>true</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="109" name="@GENERATOR:PROBES">
+			<value>true</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="110" name="@GENERATOR:DEBUG">
+			<value>true</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="111" name="@GENERATOR:OPTLEVEL">
+			<value>0</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="112" name="@GENERATOR:GENERATOR">
+			<value>C QUAL64</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="113" name="@VC6.0:ADD_COMP_OPTIONS">
+			<value>/nologo /ML /O2</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="114" name="@GENERATOR:TARGET_DIR">
+			<value>$(Configuration)</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="115" name="@GNU C:ADD_LINK_OPTIONS">
+			<value>-L../../engine/build/win32 -lenvsim</value>
+			<configuration>105</configuration>
 		</Prop>
 	</props>
 	<roots>
 		<Folder id="3" extensions="vsp;etp" name="SCADE Libraries">
 			<elements>
-				<FileRef id="96" persistAs="..\..\modeling\model\Scade\System\ObuFunctions\ETCS_Messaging\TrackMessages\TrackMessages.etp"/>
+				<FileRef id="100" persistAs="..\..\..\modeling\model\Scade\System\ObuFunctions\ETCS_Messaging\TrackMessages\TrackMessages.etp"/>
 			</elements>
 		</Folder>
 		<Folder id="12" extensions="xscade;scade" name="Model Files">
 			<elements>
 				<Folder id="13" extensions="xscade;scade" name="Separate Files"/>
 				<FileRef id="99" persistAs="EnvSim1.xscade"/>
+			</elements>
+		</Folder>
+		<Folder id="101" extensions="c;adb;ada" name="External Code">
+			<elements>
+				<FileRef id="102" persistAs="..\engine\src\scade\ScriptedTrack_EnvSim.c">
+					<props>
+						<Prop id="103" name="@SIMULATOR:FILEKIND">
+							<value>CS</value>
+						</Prop>
+						<Prop id="104" name="@SCADE:IMPORTED_NODES">
+							<value>EnvSim::ScriptedTrack</value>
+						</Prop>
+					</props>
+				</FileRef>
 			</elements>
 		</Folder>
 	</roots>
@@ -328,5 +380,6 @@
 		<Configuration id="61" name="DashBoard"/>
 		<Configuration id="64" name="Qualified Reporter"/>
 		<Configuration id="72" name="Synchronization"/>
+		<Configuration id="105" name="SimulationJK"/>
 	</configurations>
 </Project>
