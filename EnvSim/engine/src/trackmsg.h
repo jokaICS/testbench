@@ -36,6 +36,8 @@ typedef struct {
 } es_TrackSimState;
 
 
+extern es_TrackMessages es_scripted_tracksim_track;
+
 // Enqueues a balise message into the output buffer.
 // Every time es_write_next_balise_message is called,
 // it takes the next message from this buffer.

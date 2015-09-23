@@ -1,10 +1,11 @@
 //     Project: EnvSim
-//      Module: libenvsim / interp.c
-// Description: Custom interface to the Tcl interpreter
+//      Module: libenvsim / tcl / interp.c
+// Description: Custom interface to the embedded Tcl interpreter (Jim)
 //
 // History:
 // - 22.09.15, J. Kastner: initial version
 
+#ifdef WITH_JIM
 #include "interp.h"
 
 es_Interp* es_init_interp() {
@@ -30,3 +31,5 @@ es_Status es_eval_tcl(es_Interp *interp, const char *script) {
   }
   return error;
 }
+
+#endif

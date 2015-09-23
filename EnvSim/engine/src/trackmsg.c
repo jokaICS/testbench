@@ -58,21 +58,20 @@ void es_exec_tracksim_cycle(es_TrackSimState *state, es_TriggerPos newBPos) {
 }
 
 //------------------ interface for SCADE ScriptedTrack operator ---------------
-static es_TrackSimState es_scripted_tracksim_state;
+es_TrackMessages es_scripted_tracksim_track = {
+  .bmsgs = NULL
+};
+
+es_TrackSimState es_scripted_tracksim_state = {
+  .messages = &es_scripted_tracksim_track,
+  .prevBmsg = NULL,
+  .prevBPos = 0.0
+};
 
 void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out) {
-  es_scripted_tracksim_state.messages = CALLOC(es_TrackMessages);
-  es_TrackMessages *track = es_scripted_tracksim_state.messages;
+  //es_scripted_tracksim_state.messages = CALLOC(es_TrackMessages);
+  //es_TrackMessages *track = es_scripted_tracksim_state.messages;
 
-  es_scripted_tracksim_state.prevBmsg = NULL;
-  es_scripted_tracksim_state.prevBPos = 0.0;
-
-  track->bmsgs = NULL;
-
-  CompressedBaliseMessage_TM *bm = CALLOC(CompressedBaliseMessage_TM);
-  bm->Header.nid_bg = 43;
-
-  es_add_triggered_balise_message(es_scripted_tracksim_state.messages,43,bm);
 }
 
 void es_scripted_tracksim_cycle(outC_ScriptedTrack_EnvSim *out, double actualPos, double radioPos) {
