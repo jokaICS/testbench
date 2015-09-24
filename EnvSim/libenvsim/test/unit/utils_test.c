@@ -27,6 +27,20 @@ START_TEST(test_es_list_append) {
 } END_TEST
 
 
+START_TEST(test_es_list_get) {
+    es_ListEntry *list = NULL;
+    ck_assert_int_eq(NULL,es_list_get(list,10));
+
+    list = es_list_append(list,"1");
+    es_list_append(list,"2");
+
+    ck_assert_str_eq("1", es_list_get(list,0)->data);
+    ck_assert_str_eq("2", es_list_get(list,1)->data);
+    ck_assert_int_eq(NULL,es_list_get(list,2));
+
+  } END_TEST;
+
+
 bool telf1(void* data) { return strcmp("e2",(char*)data) != 0; }
 bool telf2(void* data) { return strcmp("e3",(char*)data) != 0; }
 
@@ -107,6 +121,36 @@ START_TEST(test_es_list_insert) {
   } END_TEST;
 
 
+int telf3n = 0;
+void telf3(void* data, es_ClientData clientData) { telf3n++; }
+START_TEST(test_es_list_foreach) {
+    es_ListEntry *list = NULL;
+    list = es_list_append(list,"a");
+    es_list_append(list,"b");
+
+    es_list_foreach(NULL,telf3,NULL);
+    ck_assert_int_eq(0,telf3n);
+
+    es_list_foreach(list,telf3,NULL);
+    ck_assert_int_eq(2,telf3n);
+
+    es_list_foreach(list->tail,telf3,NULL);
+    ck_assert_int_eq(3,telf3n);
+
+  } END_TEST;
+
+
+START_TEST(test_es_list_size) {
+    es_ListEntry *list = NULL;
+    list = es_list_append(list,"1");
+    es_list_append(list,"2");
+
+    ck_assert_int_eq(0, es_list_size(NULL));
+    ck_assert_int_eq(2, es_list_size(list));
+    ck_assert_int_eq(1, es_list_size(list->tail));
+  } END_TEST;
+
+
 START_TEST(test_es_bytes_to_hex) {
   char bytebuf[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,0x20,0xaa,0xff};
     char hexbuf[41];
@@ -127,9 +171,12 @@ TCase* tc_utils() {
   TCase *tc = tcase_create("utils");
 
   tcase_add_test(tc, test_es_list_append);
+  tcase_add_test(tc, test_es_list_get);
   tcase_add_test(tc, test_es_list_filter);
   tcase_add_test(tc, test_es_list_remove_head);
   tcase_add_test(tc, test_es_list_insert);
+  tcase_add_test(tc, test_es_list_foreach);
+  tcase_add_test(tc, test_es_list_size);
   tcase_add_test(tc, test_es_bytes_to_hex);
 
   return tc;

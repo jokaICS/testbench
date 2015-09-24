@@ -5,6 +5,7 @@
 // History:
 // - 22.09.15, kastner: 
 
+#include <stdio.h>
 #include "envsim.h"
 
 #define GET_TRIGGERED_BM(list_entry) (list_entry==NULL ? NULL : (es_TriggeredBaliseMessage*)list_entry->data)
@@ -41,8 +42,8 @@ int es_cmp_tbm(char* tbm1, char* tbm2) {
 void es_add_triggered_balise_message(es_TrackMessages *track, es_TriggerPos pos, CompressedBaliseMessage_TM *bmsg) {
   es_TriggeredBaliseMessage *tbm = MALLOC(es_TriggeredBaliseMessage);
   tbm->triggerpos = pos;
-  memcpy(&tbm->msg,bmsg, sizeof(CompressedBaliseMessage_TM));
-  //tbm->msg = *bmsg;
+  //memcpy(&tbm->msg,bmsg, sizeof(CompressedBaliseMessage_TM));
+  tbm->msg = *bmsg;
   track->bmsgs = es_list_insert(track->bmsgs,(char*)tbm,es_cmp_tbm);
 }
 

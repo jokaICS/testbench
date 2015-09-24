@@ -7,7 +7,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include_directories(../Scade/Simulation/ ../Scade/include ../Scade/ ${JIMTCL})
 
 set(SOURCE_FILES
-  src/envsim.c
   src/scade/ScriptedTrack_EnvSim.c src/scade/ScriptedTrack_EnvSim.h
   src/utils.c src/utils.h
   src/tcl/interp.c src/tcl/interp.h

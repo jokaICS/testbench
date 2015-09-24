@@ -10,6 +10,8 @@
 #include <assert.h>
 #include "utils.h"
 
+char es_msg_buf[ES_MSG_BUF_SIZE];
+
 es_ListEntry* es_list_append(es_ListEntry *list, char *data) {
   es_ListEntry *tail = list;
 
@@ -33,6 +35,16 @@ es_ListEntry* es_list_append(es_ListEntry *list, char *data) {
   return tail;
 }
 
+es_ListEntry* es_list_get(es_ListEntry *list, int index) {
+  int i=0;
+  es_ListEntry *next = list;
+  while(next!=NULL) {
+    if(i==index) return next;
+    next = next->tail;
+    i++;
+  }
+  return NULL;
+}
 
 es_ListEntry* es_list_filter(es_ListEntry *list, bool (*f)(char*)) {
   es_ListEntry *prev = NULL;
@@ -96,6 +108,25 @@ es_ListEntry* es_list_insert(es_ListEntry *list, char *data, int (*cmp)(char *da
   return list;
 }
 
+
+void es_list_foreach(es_ListEntry *list, void (*f)(char*,es_ClientData), es_ClientData clientData) {
+  es_ListEntry *next = list;
+  while(next!=NULL) {
+    f(next->data,clientData);
+    next = next->tail;
+  }
+}
+
+
+int es_list_size(es_ListEntry *list) {
+  int size = 0;
+  es_ListEntry *next = list;
+  while(next!=NULL) {
+    size++;
+    next = next->tail;
+  }
+  return size;
+}
 
 char es_hexvalue(char byte) {
   assert(byte >=0 && byte <16);
