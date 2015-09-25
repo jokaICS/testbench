@@ -19,11 +19,17 @@ typedef struct {
   CompressedBaliseMessage_TM msg;
 } es_TriggeredBaliseMessage;
 
+typedef struct {
+  es_TriggerPos triggerpos;
+  CompressedRadioMessage_TM msg;
+} es_TriggeredRadioMessage;
 
 typedef struct {
   // linked list with balise messages
   // (in ascending order w.r.t. triggerpos)
   es_ListEntry *bmsgs;
+  // linked list with radio messages
+  es_ListEntry *rmsgs;
 } es_TrackMessages;
 
 
@@ -48,8 +54,11 @@ void es_queue_balise_message(CompressedBaliseMessage_TM *msg);
 // in the balise message buffer.
 void es_write_next_balise_message(CompressedBaliseMessage_TM *target);
 
-// Adds a new balise message to the prvided track at the specified trigger position.
+// Adds a new balise message to the provided track at the specified trigger position.
 void es_add_triggered_balise_message(es_TrackMessages *track, es_TriggerPos pos, CompressedBaliseMessage_TM *bmsg);
+
+// Adds a new radio message to the provided track at the specified trigger position.
+void es_add_triggered_radio_message(es_TrackMessages *track, es_TriggerPos pos, CompressedRadioMessage_TM *tmsg);
 
 //void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out);
 

@@ -13,6 +13,8 @@
 
 es_Status es_tcl_track_balise(char* subcmd, char* arg, void (*appendResult)(char*,es_ClientData), es_ClientData data);
 
+es_Status es_tcl_track_radio(char* subcmd, char* arg, void (*appendResult)(char*,es_ClientData), es_ClientData data);
+
 es_Status es_tcl_track_add(char* subcmd, double pos);
 
 es_Status es_tcl_track_info(void (*appendResult)(char* res, es_ClientData data), es_ClientData data);

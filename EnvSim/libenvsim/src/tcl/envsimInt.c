@@ -27,6 +27,20 @@ int envsim_track_balise_cmd(ClientData data, Tcl_Interp *interp, int objc, Tcl_O
   return TCL_OK;
 }
 
+
+int envsim_track_radio_cmd(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj *const *objv) {
+  if(objc!=3) {
+    Tcl_WrongNumArgs(interp,1,objv,"raw {arg}");
+    return TCL_ERROR;
+  }
+  if(es_tcl_track_radio(Tcl_GetString(objv[1]), Tcl_GetString(objv[2]),envsim_append_result,(es_ClientData)interp)) {
+    Tcl_AddErrorInfo(interp,es_msg_buf);
+    return TCL_ERROR;
+  };
+  return TCL_OK;
+}
+
+
 int envsim_track_add_cmd(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj *const *objv) {
   if(objc!=3) {
     Tcl_WrongNumArgs(interp,1,objv,"balise|radio position");
@@ -56,6 +70,7 @@ int envsim_track_info_cmd(ClientData data, Tcl_Interp *interp, int objc, Tcl_Obj
 //-------------------------- extension interface ----------------------------
 int Envsim_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "track::balise", envsim_track_balise_cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "track::radio", envsim_track_radio_cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "track::add", envsim_track_add_cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "track::info", envsim_track_info_cmd, NULL, NULL);
   return TCL_OK;
