@@ -1,5 +1,5 @@
-//     Project: EnvSim
-//      Module: libenvsim / envsim.h
+//     Project: openETCS libenvsim
+//      Module: envsim.h
 // Description: Master header for the libenvsim client library
 //
 // History:

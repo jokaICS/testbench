@@ -1,5 +1,5 @@
-//     Project: EnvSim
-//      Module: libenvsim / utils.c
+//     Project: openETCS libenvsim
+//      Module: utils.c
 // Description: Common utility functions
 //
 // History:

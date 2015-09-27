@@ -1,10 +1,10 @@
-//     Project: EnvSim
-//      Module: libenvsim / envsimInt.c
-// Description: Tcl extension for libenvsimj
+//     Project: openETCS libenvsim
+//      Module: tcl / envsimInt.c
+// Description: Tcl extension for libenvsim
 //
 // History:
 // - 23.09.15, J. Kastner: initial version
-#define WITH_TCL_EXTENSION
+
 #ifdef WITH_TCL_EXTENSION
 #include "envsimInt.h"
 #include "track.h"

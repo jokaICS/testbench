@@ -1,5 +1,5 @@
-//     Project: EnvSim
-//      Module: libenvsim / tcl / interp.h
+//     Project: openETCS libenvsim
+//      Module: tcl / interp.h
 // Description: Custom interface to the embedded Tcl interpreter (Jim)
 //
 // History:
@@ -9,10 +9,13 @@
 #define ENGINE_INTERP_H
 #ifdef WITH_JIM
 
+#include "../utils.h"
 #include <jim.h>
 
 typedef Jim_Interp es_Interp;
-typedef int es_Status;
+
+// Returns the global Tcl interpreter instance
+es_Interp* es_get_interp();
 
 es_Interp* es_init_interp();
 

@@ -318,8 +318,8 @@
 											<positions>
 												<Point x="11033" y="3651"/>
 												<Point x="11615" y="3651"/>
-												<Point x="11615" y="3625"/>
-												<Point x="12224" y="3625"/>
+												<Point x="11615" y="3651"/>
+												<Point x="12224" y="3651"/>
 											</positions>
 										</Edge>
 										<Edge leftVarIndex="2" rightExprIndex="1" srcEquation="!ed/5ef9e0/5971/E40/55f98686597d" dstEquation="!ed/5ef9ec/5971/E40/55f9869648f4">

@@ -1,5 +1,5 @@
-//     Project: EnvSim
-//      Module: libenvsim / trackmsg.h
+//     Project: openETCS libenvsim
+//      Module: trackmsg.h
 // Description: Management + triggering of trackside messages (balise telegrams and radio messages)
 //
 // History:
@@ -11,6 +11,8 @@
 #include "utils.h"
 //#include "kcg_types.h"
 #include "scade/ScriptedTrack_EnvSim.h"
+
+#define MAX_NUM_PACKETS 30
 
 typedef double es_TriggerPos;
 
@@ -41,8 +43,9 @@ typedef struct {
   es_TriggerPos prevBPos;
 } es_TrackSimState;
 
-
-extern es_TrackMessages es_scripted_tracksim_track;
+// global struct with currently defined track messages
+// (used by the Tcl track::xxx commands and ScriptedTrack_EnvSim.c)
+extern es_TrackMessages es_tracksim_track;
 
 // Enqueues a balise message into the output buffer.
 // Every time es_write_next_balise_message is called,

@@ -1,26 +1,48 @@
-//     Project: EnvSim
-//      Module: libenvsim / trackmsg.h
+//     Project: openETCS libenvsim
+//      Module: trackmsg.c
 // Description: Representation + triggering of trackside messages (balise telegrams and radio messages)
 //
 // History:
-// - 22.09.15, kastner: 
+// - 22.09.15, kastner:
 
 #include <stdio.h>
-#include "envsim.h"
 #include "trackmsg.h"
+#include "logging.h"
 
-#define GET_TRIGGERED_BM(list_entry) (list_entry==NULL ? NULL : (es_TriggeredBaliseMessage*)list_entry->data)
+#define GET_TRIGGERED_BM(list_entry) (list_entry==NULL ? NULL : (es_TriggeredBaliseMessage*)list_entry->data);
 
+es_TrackMessages es_tracksim_track = {
+  .bmsgs = NULL,
+  .rmsgs = NULL
+};
 
 static es_ListEntry *es_baliseMsgBuffer = NULL;
 
 void es_queue_balise_message(CompressedBaliseMessage_TM *msg) {
-  es_baliseMsgBuffer = es_list_append(es_baliseMsgBuffer,(char*)msg);
+  if(es_baliseMsgBuffer==NULL)
+    es_baliseMsgBuffer = es_list_append(es_baliseMsgBuffer,(char*)msg);
+  else
+    es_list_append(es_baliseMsgBuffer,(char*)msg);
 }
 
 
 void es_write_next_balise_message(CompressedBaliseMessage_TM *target) {
   if(es_baliseMsgBuffer==NULL) {
+    target->Header.nid_bg=0;
+    target->Header.n_total=0;
+    target->Header.n_pig=0;
+    target->Header.m_dup=0;
+    target->Header.m_mcount=0;
+    target->Header.m_version=0;
+    target->Header.m_version=0;
+    target->Header.nid_c=0;
+    target->Header.q_link=0;
+    target->Header.q_media=0;
+    target->Header.q_updown=0;
+    int i;
+    for(i=0;i<MAX_NUM_PACKETS;i++) {
+      target->Messages.PacketHeaders[i].valid = false;
+    }
     return;
   }
 
@@ -64,33 +86,19 @@ void es_add_triggered_radio_message(es_TrackMessages *track, es_TriggerPos pos, 
 
 void es_exec_tracksim_cycle(es_TrackSimState *state, es_TriggerPos newBPos) {
   es_ListEntry *next = state->prevBmsg==NULL ? state->messages->bmsgs : state->prevBmsg->tail;
+  es_ListEntry *prev = state->prevBmsg;
 
   es_TriggeredBaliseMessage *nextbm = GET_TRIGGERED_BM(next);
 
   while(nextbm!=NULL && nextbm->triggerpos<=newBPos) {
+    LOG_TRACE(trackmsg,"triggering balise msg BG %d @ %.1f m",nextbm->msg.Header.nid_bg,nextbm->triggerpos);
     es_queue_balise_message(&nextbm->msg);
-    nextbm = GET_TRIGGERED_BM(next->tail);
+    prev = next;
+    next = next->tail;
+    nextbm = GET_TRIGGERED_BM(next);
   }
+  state->prevBmsg = prev;
+  state->prevBPos = newBPos;
 }
 
-//------------------ interface for SCADE ScriptedTrack operator ---------------
-es_TrackMessages es_scripted_tracksim_track = {
-  .bmsgs = NULL
-};
 
-es_TrackSimState es_scripted_tracksim_state = {
-  .messages = &es_scripted_tracksim_track,
-  .prevBmsg = NULL,
-  .prevBPos = 0.0
-};
-
-void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out) {
-  //es_scripted_tracksim_state.messages = CALLOC(es_TrackMessages);
-  //es_TrackMessages *track = es_scripted_tracksim_state.messages;
-
-}
-
-void es_scripted_tracksim_cycle(outC_ScriptedTrack_EnvSim *out, double actualPos, double radioPos) {
-  es_exec_tracksim_cycle(&es_scripted_tracksim_state,actualPos);
-  es_write_next_balise_message(&out->baliseMessage);
-}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project id="1" oid_count="115" defaultConfiguration="22">
+<Project id="1" oid_count="119" defaultConfiguration="22">
 	<props>
 		<Prop id="10" name="@STUDIO:PRODUCT">
 			<value>SC</value>
@@ -322,10 +322,6 @@
 			<value>true</value>
 			<configuration>105</configuration>
 		</Prop>
-		<Prop id="111" name="@GENERATOR:OPTLEVEL">
-			<value>0</value>
-			<configuration>105</configuration>
-		</Prop>
 		<Prop id="112" name="@GENERATOR:GENERATOR">
 			<value>C QUAL64</value>
 			<configuration>105</configuration>
@@ -339,7 +335,11 @@
 			<configuration>105</configuration>
 		</Prop>
 		<Prop id="115" name="@GNU C:ADD_LINK_OPTIONS">
-			<value>-L../../engine/build/win32 -lenvsim</value>
+			<value>-L../../libenvsim/build/win32 -lenvsim -L../../libenvsim/build/jimtcl_win32 -ljim</value>
+			<configuration>105</configuration>
+		</Prop>
+		<Prop id="116" name="@GENERATOR:EXPAND_MODE">
+			<value>2</value>
 			<configuration>105</configuration>
 		</Prop>
 	</props>
@@ -357,12 +357,13 @@
 		</Folder>
 		<Folder id="101" extensions="c;adb;ada" name="External Code">
 			<elements>
-				<FileRef id="102" persistAs="..\engine\src\scade\ScriptedTrack_EnvSim.c">
+				<FileRef id="102" persistAs="..\engine\src\scade\ScriptedTrack_EnvSim.c"/>
+				<FileRef id="117" persistAs="..\libenvsim\src\scade\ScriptedTrack_EnvSim.c">
 					<props>
-						<Prop id="103" name="@SIMULATOR:FILEKIND">
+						<Prop id="118" name="@SIMULATOR:FILEKIND">
 							<value>CS</value>
 						</Prop>
-						<Prop id="104" name="@SCADE:IMPORTED_NODES">
+						<Prop id="119" name="@SCADE:IMPORTED_NODES">
 							<value>EnvSim::ScriptedTrack</value>
 						</Prop>
 					</props>

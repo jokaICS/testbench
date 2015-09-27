@@ -1,5 +1,5 @@
-//     Project: EnvSim
-//      Module: libenvsim / tcl / track.c
+//     Project: openETCS libenvsim
+//      Module: tcl / track.c
 // Description: Tcl interface for management of track messages
 //
 // History:
@@ -24,7 +24,7 @@ es_Status es_tcl_track_balise_load_raw(char* hexdata) {
 }
 
 es_Status es_tcl_track_balise_load_index(int i) {
-  es_ListEntry *e = es_list_get(es_scripted_tracksim_track.bmsgs,i);
+  es_ListEntry *e = es_list_get(es_tracksim_track.bmsgs,i);
 
   if(e==NULL) {
     snprintf(es_msg_buf,ES_MSG_BUF_SIZE,"invalid balise index=%d",i);
@@ -43,7 +43,7 @@ es_Status es_tcl_track_radio_load_raw(char* hexdata) {
 
 
 es_Status es_tcl_track_radio_load_index(int i) {
-  es_ListEntry *e = es_list_get(es_scripted_tracksim_track.rmsgs,i);
+  es_ListEntry *e = es_list_get(es_tracksim_track.rmsgs,i);
 
   if(e==NULL) {
     snprintf(es_msg_buf,ES_MSG_BUF_SIZE,"invalid radio index=%d",i);
@@ -144,11 +144,11 @@ es_Status es_tcl_track_radio(char* subcmd, char* arg, void (*appendResult)(char*
 
 es_Status es_tcl_track_add(char* subcmd, double pos) {
   if(!strcmp("balise",subcmd)) {
-    es_add_triggered_balise_message(&es_scripted_tracksim_track,pos,&es_tcl_track_balise_buf);
+    es_add_triggered_balise_message(&es_tracksim_track,pos,&es_tcl_track_balise_buf);
     return ES_OK;
   }
   if(!strcmp("radio",subcmd)) {
-    es_add_triggered_radio_message(&es_scripted_tracksim_track,pos,&es_tcl_track_radio_buf);
+    es_add_triggered_radio_message(&es_tracksim_track,pos,&es_tcl_track_radio_buf);
     return ES_OK;
   }
   snprintf(es_msg_buf,ES_MSG_BUF_SIZE,"invalid sub command for 'track::add': %s",subcmd);
@@ -158,7 +158,7 @@ es_Status es_tcl_track_add(char* subcmd, double pos) {
 
 es_Status es_tcl_track_info(void (*appendResult)(char* res, es_ClientData data), es_ClientData data) {
   // balise messages
-  es_ListEntry *next = es_scripted_tracksim_track.bmsgs;
+  es_ListEntry *next = es_tracksim_track.bmsgs;
   int i = 0;
   while(next!=NULL) {
     es_TriggeredBaliseMessage *bm = (es_TriggeredBaliseMessage*)next->data;
@@ -169,7 +169,7 @@ es_Status es_tcl_track_info(void (*appendResult)(char* res, es_ClientData data),
     i++;
   }
   // radio messages
-  next = es_scripted_tracksim_track.rmsgs;
+  next = es_tracksim_track.rmsgs;
   i = 0;
   while(next!=NULL) {
     es_TriggeredRadioMessage *rm = (es_TriggeredRadioMessage*)next->data;
