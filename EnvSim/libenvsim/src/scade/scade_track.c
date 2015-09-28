@@ -5,16 +5,19 @@
 // History:
 // - 25.09.15, J. Kastner: initial version
 
-#ifdef WITH_JIM
+#ifdef WITH_SCADE
 #include <stdio.h>
 #include "../trackmsg.h"
 #include "../tcl/interp.h"
 #include "../logging.h"
+#include "ScriptedTrack_EnvSim.h"
 
 es_TrackSimState es_scripted_tracksim_state = {
   .messages = &es_tracksim_track,
   .prevBmsg = NULL,
-  .prevBPos = 0.0
+  .prevBPos = 0.0,
+  .prevRmsg = NULL,
+  .prevRPos = 0.0
 };
 
 
@@ -40,13 +43,15 @@ void es_scripted_tracksim_init(outC_ScriptedTrack_EnvSim *out) {
 
   // use loaded track for current simulation
   es_scripted_tracksim_state.messages = &es_tracksim_track;
-  LOG_INFO(scade_track,"tracksize: %d\n",es_list_size(es_tracksim_track.bmsgs));
+  LOG_INFO(scade_track,"loaded %d balise messages and %d radio messages",
+           es_list_size(es_tracksim_track.bmsgs),es_list_size(es_tracksim_track.rmsgs));
 }
 
 
 void es_scripted_tracksim_cycle(outC_ScriptedTrack_EnvSim *out, double actualPos, double radioPos) {
-  es_exec_tracksim_cycle(&es_scripted_tracksim_state,actualPos);
+  es_exec_tracksim_cycle(&es_scripted_tracksim_state,actualPos,radioPos);
   es_write_next_balise_message(&out->baliseMessage);
+  es_write_next_radio_message(&out->radioMessage);
 }
 
 #endif

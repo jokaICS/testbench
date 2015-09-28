@@ -19,6 +19,7 @@ FILE *es_logfile = NULL;
 char es_logmsg[LOG_MSG_SIZE];
 char es_logbuf[LOG_BUF_SIZE];
 
+es_LogLevel es_current_loglevel = ES_LOG_TRACE;
 
 void es_log_write_to_file(char *msg) {
   if(es_logfile==NULL) return;

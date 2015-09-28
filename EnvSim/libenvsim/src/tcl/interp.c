@@ -51,7 +51,9 @@ int es_jim_track_cmd(Jim_Interp *interp, int argc, Jim_Obj *const *argv) {
   }
   if(!strcmp("track::radio",cmd)) {
     if(!strcmp("raw",subcmd)) {
-
+      if(es_tcl_track_radio(subcmd,arg,es_jim_append_result,NULL)) {
+        ERROR(interp,es_msg_buf);
+      }
       return JIM_OK;
     }
     ERROR(interp,"invalid subcommand for track::radio: %s",subcmd);

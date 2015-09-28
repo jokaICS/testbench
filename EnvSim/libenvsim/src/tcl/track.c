@@ -148,6 +148,7 @@ es_Status es_tcl_track_add(char* subcmd, double pos) {
     return ES_OK;
   }
   if(!strcmp("radio",subcmd)) {
+    printf("Adding rmsg %d @ %.1f\n",es_tcl_track_radio_buf.Header.nid_message,pos);
     es_add_triggered_radio_message(&es_tracksim_track,pos,&es_tcl_track_radio_buf);
     return ES_OK;
   }

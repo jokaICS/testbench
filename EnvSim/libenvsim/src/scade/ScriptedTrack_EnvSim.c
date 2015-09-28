@@ -3,6 +3,7 @@
 ** Generation date: 2015-09-16T17:20:44
 *************************************************************$ */
 
+#ifdef WITH_SCADE
 #include "kcg_consts.h"
 #include "kcg_sensors.h"
 #include "ScriptedTrack_EnvSim.h"
@@ -37,3 +38,4 @@ void ScriptedTrack_EnvSim(
 ** Generation date: 2015-09-16T17:20:44
 *************************************************************$ */
 
+#endif

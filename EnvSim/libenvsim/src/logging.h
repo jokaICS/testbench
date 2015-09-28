@@ -8,17 +8,19 @@
 #ifndef LIBENVSIM_LOGGING_H
 #define LIBENVSIM_LOGGING_H
 
-#define LOG_TRACE(src,...) es_log(ES_LOG_TRACE,__VA_ARGS__);
-#define LOG_INFO(src,...) es_log(ES_LOG_INFO,__VA_ARGS__);
-#define LOG_WARN(src,...) es_log(ES_LOG_WARN,__VA_ARGS__);
+#define LOG_TRACE(src,...) if(es_current_loglevel>=ES_LOG_TRACE) es_log(ES_LOG_TRACE,__VA_ARGS__);
+#define LOG_INFO(src,...) if(es_current_loglevel>=ES_LOG_INFO) es_log(ES_LOG_INFO,__VA_ARGS__);
+#define LOG_WARN(src,...) if(es_current_loglevel>=ES_LOG_WARN) es_log(ES_LOG_WARN,__VA_ARGS__);
 #define LOG_ERROR(src,...) es_log(ES_LOG_ERROR,__VA_ARGS__);
 
 typedef enum {
-  ES_LOG_TRACE,
-  ES_LOG_INFO,
+  ES_LOG_ERROR,
   ES_LOG_WARN,
-  ES_LOG_ERROR
+  ES_LOG_INFO,
+  ES_LOG_TRACE,
 } es_LogLevel;
+
+extern es_LogLevel es_current_loglevel;
 
 void es_log(es_LogLevel lvl, char* msg, ...);
 

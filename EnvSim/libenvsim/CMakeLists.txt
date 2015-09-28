@@ -32,7 +32,7 @@ ENDIF(WITH_TCL_EXTENSION)
 
 
 IF(WITH_JIM)
-  add_definitions(-DWITH_JIM)
+  add_definitions(-DWITH_JIM -DWITH_SCADE)
   link_directories(${JIMTCL})
   target_link_libraries(envsim jim)
 ENDIF(WITH_JIM)
